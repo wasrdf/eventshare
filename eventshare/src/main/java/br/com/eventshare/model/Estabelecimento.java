@@ -3,11 +3,14 @@ package br.com.eventshare.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,7 +27,8 @@ public class Estabelecimento implements Serializable {
 	private static final long serialVersionUID = 5086631149516599426L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long codigo;
+	private Long codigo;	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Endereco endereco;
 	private String telefone;
 	private String email;
@@ -38,6 +42,12 @@ public class Estabelecimento implements Serializable {
 	@Column(name = "nome_responsavel")
 	private String nomeResponsavel;
 	
+	
+	
+	
+	public Estabelecimento() {
+		this.endereco = new Endereco();
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -26,6 +26,8 @@ public class Endereco implements Serializable {
 	private String logradouro;
 	private String numero;
 	private String complemento;
+	
+	
 
 	public Long getCodigo() {
 		return codigo;
