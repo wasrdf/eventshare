@@ -4,54 +4,77 @@ PARA CADASTRAR SEUS EVENTOS.
 ADICIONAR DATA, DESCRICAO, ESTABELECIMENTO, DATA TERMINO LISTA AMIGA.
 
 
-ESTABELECIMENTO 
-ID
-ENDERECO
-TELEFONE
-EMAIL
-SITUACAO
-NIVEL 
-CNPJ
-DATA_CADASTRO
-NOME RESPONSAVEL
+create database poseidon;
+
+use poseidon;
 
 
-ENDERECO
-ID
-CEP
-UF
-CIDADE
-BAIRRO
-LOGRADOURO
-NUMERO
-COMPLEMENTO
+create table endereco(
+codigo int primary key auto_increment,
+cep varchar(15),
+uf varchar(2),
+cidade varchar(50),
+bairro varchar(50),
+endereco varchar(50),
+numero varchar(15),
+complemento varchar(20)
+);
 
-EVENTO
-ID
-DATA_EVENTO
-DESCRICAO
-DATA_TERMINO_LISTA_AMIGA
-IMG
+alter column
 
 
-CLIENTE
-ID
-NOME_CLIENTE
-TELEFONE
-EMAIL
-ACEITA_RECEBER_SMS
-ACEITA_RECEBER_EMAIL
+select * from endereco;
+
+create table estabelecimento(
+codigo int primary key auto_increment,
+cod_endereco int,
+telefone varchar(15),
+email varchar(50),
+situacao varchar(15),
+nivel int,
+cpf_cnpj varchar(15),
+data_cadastro date,
+nome_responsavel varchar(50)
+);
+
+alter table estabelecimento
+DROP column COD_ENDERECO
+
+alter table estabelecimento
+drop column endereco;
+
+SELECT * FROM estabelecimento;
 
 
-SELECIONAR EVENTO 
-SE DATA CADASTRO < DATA TERMINO LISTA AMIGA  FAÇA
-	LISTA ENCERRADA.
-	ELSE
-	NOME CADASTRADO COM SUCESSO.
-	
-	ESTABELECIMENTO IMPRIMIR LISTA AMIGA.
-	ESTABELECIMENTO VERIFICA NUMERO DE INTERESSADOS.
-	ESTABELECIMENTO CAPTURA EMAIL DOS PARTICIPANTES PARA UM FUTURO TRABALHO DE MARKETING.
+delete from estabelecimento;
+
+SET SQL_SAFE_UPDATES = 0;
+
+/*alter table estabelecimento change column cnpj  cpf_cnpj varchar(15);*/
+
+alter table estabelecimento
+add constraint fk_cod_endereco foreign key(cod_endereco) references endereco(codigo);
+
+create table evento(
+codigo int primary key auto_increment,
+data_evento datetime,
+descricao varchar(500),
+data_termino_lista_amiga datetime,
+url blob
+);
+
+create table cliente(
+codigo int primary key auto_increment,
+nome varchar(50),
+telefone varchar(15),
+email varchar(50),
+aceita_sms boolean,
+aceita_email boolean
+);
+
+
+select * from estabelecimento;
+
 	
   
   
